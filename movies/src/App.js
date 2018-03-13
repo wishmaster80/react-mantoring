@@ -11,10 +11,11 @@ class App extends Component {
     }
   function Set(response)
   {    
+    
     listItems = response.map((movie) =>
     <ListItem key={movie.toString()}
       value={movie} /> )
-      alert(listItems)
+      alert(listItems.length)
   }
 
     async function GetMovies() {
@@ -36,11 +37,10 @@ class App extends Component {
     // const movies = [1, 2, 3, 4, 5];
     //  listItems = movies.map((movie) =>
     // <ListItem key={movie.toString()}
-    //           value={movie} />
-  //);    
+    //           value={movie} />  );    
     return (
       <ul>
-      {listItems}
+      {listItems.length}
     </ul>
     );
   }
