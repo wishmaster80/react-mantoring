@@ -3,17 +3,45 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  
   render() {
+    var listItems = []
+    function ListItem(props) {      
+      return <li>XX {props.value}</li>;
+    }
+  function Set(response)
+  {    
+    listItems = response.map((movie) =>
+    <ListItem key={movie.toString()}
+      value={movie} /> )
+      alert(listItems)
+  }
+
+    async function GetMovies() {
+      fetch('https://react-mentoring-backend.herokuapp.com/movies')
+     .then(
+      response => response.json()
+      )
+      .then(
+      response => {        
+        Set(response)
+      }
+      
+    
+    , error => {alert('error')}
+    )
+    
+    }
+    GetMovies();
+    // const movies = [1, 2, 3, 4, 5];
+    //  listItems = movies.map((movie) =>
+    // <ListItem key={movie.toString()}
+    //           value={movie} />
+  //);    
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <ul>
+      {listItems}
+    </ul>
     );
   }
 }
