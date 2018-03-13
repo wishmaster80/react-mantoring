@@ -3,45 +3,48 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
-  
-  render() {
-    var listItems = []
-    function ListItem(props) {      
-      return <li>XX {props.value}</li>;
-    }
-  function Set(response)
-  {    
-    
-    listItems = response.map((movie) =>
-    <ListItem key={movie.toString()}
-      value={movie} /> )
-      alert(listItems.length)
+  state = {
+    listItems: []
+  }
+  componentDidMount() {
+    debugger;
+    this.GetMovies();
   }
 
-    async function GetMovies() {
-      fetch('https://react-mentoring-backend.herokuapp.com/movies')
-     .then(
-      response => response.json()
+  GetMovies() {
+    fetch('https://react-mentoring-backend.herokuapp.com/movies')
+      .then(
+        response => response.json()
       )
       .then(
-      response => {        
-        Set(response)
-      }
-      
-    
-    , error => {alert('error')}
-    )
-    
-    }
-    GetMovies();
+        response => {
+          this.setState({listItems: response})
+        }
+        , error => { alert('error') })
+  }
+
+  Set(response) {
+
+    this.listItems = response.map((movie) =>
+      <this.ListItem key={movie.toString()}
+        value={movie} />)
+    alert(this.listItems.length)
+  }
+
+  ListItem(props) {
+    return <li>{props.year}</li>;
+  }
+
+  render() {
+
     // const movies = [1, 2, 3, 4, 5];
     //  listItems = movies.map((movie) =>
     // <ListItem key={movie.toString()}
     //           value={movie} />  );    
     return (
       <ul>
-      {listItems.length}
-    </ul>
+        {this.state.listItems.length}
+      </ul>
     );
   }
 }
