@@ -6,12 +6,21 @@ class App extends Component {
   state = {
     listItems: []
   }
-  componentDidMount() {
+  async componentDidMount() {
     debugger;
-    this.GetMovies();
+    const movies =  await this.GetMovies();
+    this.setState({listItems: movies.map((movie) => 
+      <li key={movie.key}>
+      {movie.name} {movie.year} {movie.director} {movie.genre} {movie.rate}
+    </li>)
+     })
   }
 
-  GetMovies() {
+  async GetMovies() {
+
+    const response = await fetch('https://react-mentoring-backend.herokuapp.com/movies')
+    return await response.json()    
+/* 
     fetch('https://react-mentoring-backend.herokuapp.com/movies')
       .then(
         response => response.json()
@@ -24,7 +33,7 @@ class App extends Component {
           </li>)
            })
         }
-        , error => { alert('error') })
+        , error => { alert('error') })*/
   }
 
 
