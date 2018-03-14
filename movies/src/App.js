@@ -18,32 +18,22 @@ class App extends Component {
       )
       .then(
         response => {
-          this.setState({listItems: response})
+          this.setState({listItems: response.map((movie) => 
+            <li key={movie.key}>
+            {movie.name} {movie.year} {movie.director} {movie.genre} {movie.rate}
+          </li>)
+           })
         }
         , error => { alert('error') })
   }
 
-  Set(response) {
 
-    this.listItems = response.map((movie) =>
-      <this.ListItem key={movie.toString()}
-        value={movie} />)
-    alert(this.listItems.length)
-  }
-
-  ListItem(props) {
-    return <li>{props.year}</li>;
-  }
 
   render() {
 
-    // const movies = [1, 2, 3, 4, 5];
-    //  listItems = movies.map((movie) =>
-    // <ListItem key={movie.toString()}
-    //           value={movie} />  );    
     return (
       <ul>
-        {this.state.listItems.length}
+        {this.state.listItems}
       </ul>
     );
   }
