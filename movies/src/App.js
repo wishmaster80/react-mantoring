@@ -1,42 +1,30 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Movie from './Movie';
 
 class App extends Component {
   state = {
     listItems: []
   }
+
+
   async componentDidMount() {
-    debugger;
+    //debugger;
     const movies =  await this.GetMovies();
     this.setState({listItems: movies.map((movie) => 
       <li key={movie.key}>
-      {movie.name} {movie.year} {movie.director} {movie.genre} {movie.rate}
+      {movie.title} {movie.year} {movie.imdbRating} <Movie movie={movie} />
     </li>)
      })
   }
 
+
   async GetMovies() {
 
     const response = await fetch('https://react-mentoring-backend.herokuapp.com/movies')
-    return await response.json()    
-/* 
-    fetch('https://react-mentoring-backend.herokuapp.com/movies')
-      .then(
-        response => response.json()
-      )
-      .then(
-        response => {
-          this.setState({listItems: response.map((movie) => 
-            <li key={movie.key}>
-            {movie.name} {movie.year} {movie.director} {movie.genre} {movie.rate}
-          </li>)
-           })
-        }
-        , error => { alert('error') })*/
+    return await response.json()
   }
-
-
 
   render() {
 
