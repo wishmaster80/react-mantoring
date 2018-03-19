@@ -8,29 +8,45 @@ class Movie extends Component {
         //debugger;
         this.movie = props.movie;
         this.state = {
-            item: []
+            item: [],
+            isToggleOn: false
           }
+
+        this.handleClick = this.handleClick.bind(this);
       }    
          
+      handleClick() {
+        this.setState(prevState => ({
+          isToggleOn: !prevState.isToggleOn          
+        }));
+        
+      }
 
     componentDidMount() {
-    this.setState({item:                
-          <img
-            className="Avatar"
-            src={this.movie.posterurl}
-            // alt={props.movie.title}
-          />
-        })    
-  }
+        this.setState({item:                
+            <div>
+              <img
+                className="Avatar"
+                src={this.movie.posterurl}
+                // alt={props.movie.title}
+              />
+            </div>
+            })
+}
 
+  
   render() {
-
     return (
-      <ul>
-        {this.state.item}
+        <ul>
+            <button onClick={this.handleClick}>
+            {this.state.isToggleOn ? 'hide' : 'show'}
+      </button>
+      {this.state.isToggleOn ? this.state.item : ''}
+      
       </ul>
     );
   }  
+
 }
 
 export default Movie;
