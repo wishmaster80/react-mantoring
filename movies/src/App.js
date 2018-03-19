@@ -4,21 +4,27 @@ import './App.css';
 import Movie from './Movie';
 
 class App extends Component {
-  state = {
+
+  constructor(props) {
+    super(props);
+    //debugger;
+    this.state = {
     listItems: []
+    }
+
   }
 
-
+  
   async componentDidMount() {
-    //debugger;
+    
     const movies =  await this.GetMovies();
+    //debugger;
     this.setState({listItems: movies.map((movie) => 
-      <li key={movie.key}>
-      {movie.title} {movie.year} {movie.imdbRating} <Movie movie={movie} />
-    </li>)
+     
+       <Movie key={movie.id}  movie={movie}  />
+      )
      })
   }
-
 
   async GetMovies() {
 

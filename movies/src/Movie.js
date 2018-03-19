@@ -8,6 +8,7 @@ class Movie extends Component {
         //debugger;
         this.movie = props.movie;
         this.state = {
+            info: [],
             item: [],
             isToggleOn: false
           }
@@ -16,6 +17,10 @@ class Movie extends Component {
       }    
          
       handleClick() {
+        
+     console.log('movie')
+     
+        //this.props.onItemClick(this.props.item.id);
         this.setState(prevState => ({
           isToggleOn: !prevState.isToggleOn          
         }));
@@ -25,6 +30,7 @@ class Movie extends Component {
     componentDidMount() {
         this.setState({item:                
             <div>
+              
               <img
                 className="Avatar"
                 src={this.movie.posterurl}
@@ -32,18 +38,26 @@ class Movie extends Component {
               />
             </div>
             })
+
+            this.setState({info:                
+              <div>
+                {this.movie.title}
+                
+              </div>
+              })
 }
 
   
   render() {
     return (
-        <ul>
+        <div>
+          {this.state.info}
             <button onClick={this.handleClick}>
             {this.state.isToggleOn ? 'hide' : 'show'}
       </button>
       {this.state.isToggleOn ? this.state.item : ''}
       
-      </ul>
+      </div>
     );
   }  
 
