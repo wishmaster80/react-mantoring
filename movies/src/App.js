@@ -9,41 +9,23 @@ class App extends Component {
     super(props);
     //debugger;
     this.state = {
-    listItems: []
+    movies: [],
+    activeMovieId: false
     }
     this.handler = this.handler.bind(this)
   }
 
-  handler() {
-   // debugger;
-    console.log("parent")
-//     var x= this.state.listItems.map((movie) => {
-//       console.log( movie.year);
-//     return movie;
-// })
-
-
-    this.setState({
-      listItems: this.state.listItems.map((movie) => {
-         movie.props.isToggleOn = false;
-      return movie;
-  })
+    handler = (movieId) => {
+    this.setState({activeMovieId: movieId});
+ 
     }
-    );
-  }
 
 
-  async componentDidMount() {
-
+  async componentDidMount() {    
     const movies =  await this.GetMovies();
     //debugger;
-    this.setState({listItems: movies.map((movie) =>
-
-       <Movie key={movie.id}  movie={movie} handler={this.handler} isToggleOn={false} />
-      )
-     })
+    this.setState({movies : movies})
   }
-
   async GetMovies() {
 
     const response = await fetch('https://react-mentoring-backend.herokuapp.com/movies')
@@ -51,10 +33,10 @@ class App extends Component {
   }
 
   render() {
-
-    return (
-      <ul>
-        {this.state.listItems}
+      console.log('render' + this.state.activeMovieId)
+    return (      
+      <ul>        
+          {this.state.movies.map( (movie) =>  <Movie key={movie.id} id={movie.id} movie={movie} handler={this.handler} isToggleOn={this.state.activeMovieId == movie.id} />   )}
       </ul>
     );
   }

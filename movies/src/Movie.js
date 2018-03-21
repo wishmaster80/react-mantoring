@@ -9,23 +9,14 @@ class Movie extends Component {
         this.movie = props.movie;
         this.state = {
             info: [],
-            item: [],
-            isToggleOn: props.isToggleOn
+            item: []            
           }
-
+          this.isToggleOn = false
        this.handleClick = this.handleClick.bind(this);
       }    
          
       handleClick() {
-       this.props.handler();
-     console.log('movie')
-     
-        //this.props.onItemClick(this.props.item.id);
-        this.setState(prevState => ({
-          isToggleOn: !prevState.isToggleOn          
-        }));
-        console.log("xx"+ this.state.isToggleOn)
-        this.props.isToggleOn = this.state.isToggleOn
+       this.props.handler( this.isToggleOn ? 0 : this.props.id);
       }
 
     componentDidMount() {
@@ -34,8 +25,7 @@ class Movie extends Component {
               
               <img
                 className="Avatar"
-                src={this.movie.posterurl}
-                // alt={props.movie.title}
+                src={this.movie.posterurl}                
               />
             </div>
             })
@@ -50,15 +40,17 @@ class Movie extends Component {
 
   
   render() {
+    this.isToggleOn = this.props.isToggleOn;
+    console.log(this.movie.id)    
     return (
-        <div>
+      
+        <div>          
           {this.state.info}
-            <button onClick={this.handleClick}>
-            {/* <button onClick={this.props.handler.bind(this)}> */}
+            <button onClick={this.handleClick}>            
            
-            {this.state.isToggleOn ? 'hide' : 'show'}
+            {this.isToggleOn ? 'hide' : 'show'}
       </button>
-      {this.state.isToggleOn ? this.state.item : ''}
+      {this.isToggleOn ? this.state.item : ''}
       
       </div>
     );
