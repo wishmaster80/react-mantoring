@@ -8,7 +8,7 @@ class Movie extends Component {
         //debugger;
         this.movie = props.movie;
         this.state = {
-            info: [],
+            detail: [],
             item: []            
           }
           this.isToggleOn = false
@@ -20,20 +20,34 @@ class Movie extends Component {
       }
 
     componentDidMount() {
-        this.setState({item:                
+        this.setState({detail:
+          <div>  
             <div>
-              
+            <div>
+              {this.movie.genres.reduce((prev, curr) => [...prev, ', ', curr])}
+            </div>
+            <div>
+              {this.movie.actors.reduce((prev, curr) => [...prev, ', ', curr])}
+            </div>                          
               <img
                 className="Avatar"
                 src={this.movie.posterurl}                
               />
             </div>
+          </div>
             })
 
             this.setState({info:                
               <div>
+              <div>
                 {this.movie.title}
+              </div>
+              <div>
                 {this.movie.year}
+              </div>
+              <div>                
+                {(this.movie.ratings.reduce((a, b) => (a + b)/this.movie.ratings.length).toFixed(2)) }
+              </div>
               </div>
               })
 }
@@ -50,7 +64,7 @@ class Movie extends Component {
            
             {this.isToggleOn ? 'hide' : 'show'}
       </button>
-      {this.isToggleOn ? this.state.item : ''}
+      {this.isToggleOn ? this.state.detail : ''}
       
       </div>
     );
