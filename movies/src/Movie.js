@@ -45,18 +45,26 @@ class Movie extends Component {
         </div>
     })
   }
-
+  infoPart =()=>{
+    return (this.state.info)
+  }
+  button = ()=> {
+    return (
+    <button onClick={this.handleClick}>
+      {this.props.isToggleOn ? 'hide' : 'show'}
+    </button>
+    )
+  }
+  conditionalDetailPart() {
+    return (this.state.detail);
+  }
 
   render() {
     return (
-
       <div>
-        {this.state.info}
-        <button onClick={this.handleClick}>
-
-          {this.props.isToggleOn ? 'hide' : 'show'}
-        </button>
-        {this.props.isToggleOn ? this.state.detail : ''}
+        {this.infoPart()}
+        {this.button()}
+        {this.props.isToggleOn && this.conditionalDetailPart()}
 
       </div>
     );

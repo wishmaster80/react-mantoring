@@ -23,7 +23,7 @@ class App extends Component {
   }
 
   listMovie(movies) {
-    return movies.map((movie) => <Movie key={movie.id} id={movie.id} movie={movie} handler={this.handler} isToggleOn={this.state.activeMovieId == movie.id} />)
+    return movies.map((movie) => <Movie key={movie.id} id={movie.id} movie={movie} handler={this.handler} isToggleOn={this.state.activeMovieId === movie.id} />)
   }
   render() {
     console.log('render' + this.state.activeMovieId)
