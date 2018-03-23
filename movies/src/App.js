@@ -1,36 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Movie from './Movie';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
+
+import MoviesList from './MoviesList';
+import Featured from './Featured';
 
 class App extends Component {
-  state = {
-    movies: [],
-    activeMovieId: false
-  }
-
-  handler = (movieId) => {
-    this.setState({ activeMovieId: movieId });
-  }
-
-  async componentDidMount() {
-    const movies = await this.GetMovies();
-    this.setState({ movies: movies })
-  }
-  async GetMovies() {
-    const response = await fetch('https://react-mentoring-backend.herokuapp.com/movies')
-    return await response.json()
-  }
-
-  listMovie(movies) {
-    return movies.map((movie) => <Movie key={movie.id} id={movie.id} movie={movie} handler={this.handler} isToggleOn={this.state.activeMovieId === movie.id} />)
-  }
   render() {
-    console.log('render' + this.state.activeMovieId)
     return (
-      <ul>
-        {this.listMovie(this.state.movies)}
-      </ul>
+      <Router>
+        <div className="container">
+          <ul>
+            <li>
+              <Link to="/moviesList">MoviesList</Link>
+            </li>
+            <li>
+              <Link to="/featured/1">Featured</Link>
+            </li>
+          </ul>
+
+          <Route exact path="/movieslist" component={MoviesList} />
+          <Route path="/featured/:id" component={Featured} />
+        </div>
+      </Router>
     );
   }
 }
