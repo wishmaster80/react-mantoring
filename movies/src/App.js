@@ -7,6 +7,7 @@ import {
 
 import MoviesList from './MoviesList';
 import Featured from './Featured';
+import MovieDetails from './MovieDetails';
 
 class App extends Component {
   render() {
@@ -24,6 +25,7 @@ class App extends Component {
 
           <Route exact path="/movieslist" component={MoviesList} />
           <Route path="/featured/:id" component={Featured} />
+          <Route path="/movie/:id" component={MovieDetails} />
         </div>
       </Router>
     );
