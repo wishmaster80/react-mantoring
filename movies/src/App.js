@@ -19,12 +19,12 @@ class App extends Component {
               <Link to="/moviesList">MoviesList</Link>
             </li>
             <li>
-              <Link to="/featured/1">Featured</Link>
+              <Link to="/featured">Featured</Link>
             </li>
           </ul>
 
           <Route exact path="/movieslist" component={MoviesList} />
-          <Route path="/featured/:id" component={Featured} />
+          <Route path="/featured" component={Featured} />
           <Route path="/movie/:id" component={MovieDetails} />
         </div>
       </Router>
