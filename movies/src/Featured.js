@@ -16,7 +16,7 @@ class Featured extends Component {
     this.setState({ movies: movies })
   }
   async GetMovies() {
-    const response = await fetch('https://react-mentoring-backend.herokuapp.com/movies')
+    const response = await fetch('https://react-mentoring-backend.herokuapp.com/movies?_sort=imdbRating&_order=desc&_limit=50')
     return await response.json()
   }
 

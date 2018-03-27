@@ -48,6 +48,9 @@ class Movie extends Component {
             {(this.props.movie.ratings.reduce((a, b) => (a + b) / this.props.movie.ratings.length).toFixed(2))}
           </div>
           <div>
+            {this.props.movie.imdbRating}
+          </div>          
+          <div>
               <Link to={`/movie/${this.props.id}`}>Movie details</Link>
           </div>          
         </div>
