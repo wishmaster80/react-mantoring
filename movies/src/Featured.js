@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
-import Movie from './Movie';
+import MovieFeatured from './MovieFeatured';
 
 class Featured extends Component {
   state = {
     movies: [],
-    activeMovieId: false
+    activeMovieId: false,
+    postersList: []
   }
 
-  handler = (movieId) => {
-    this.setState({ activeMovieId: movieId });
+  SetRandomNum(){
+    var list = [];  
+    while(list.length < 15){
+      var num = Math.floor(Math.random() * 50) + 1;
+      if(!list.includes(num)){
+        list.push(num)
+      }
+    }
+    return list;
   }
 
   async componentDidMount() {
+
+   var postersList = this.SetRandomNum();
+   console.log(postersList.length)
+
     const movies = await this.GetMovies();
+    this.setState({postersList: postersList })
     this.setState({ movies: movies })
   }
   async GetMovies() {
@@ -21,7 +34,7 @@ class Featured extends Component {
   }
 
   listMovie(movies) {
-    return movies.map((movie) => <Movie key={movie.id} id={movie.id} movie={movie} handler={this.handler} isToggleOn={this.state.activeMovieId === movie.id} />)
+    return movies.map((movie) => <MovieFeatured key={movie.id} id={movie.id} movie={movie} isToggleOn={this.state.postersList.includes(movie.id)} />)
   }
   render() {    
     return (
