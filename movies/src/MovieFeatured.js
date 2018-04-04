@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
+import {  Link } from 'react-router-dom';
 
 class Movie extends Component {
   state = {
@@ -26,6 +21,7 @@ class Movie extends Component {
             <img
               className="Avatar"
               src={this.props.movie.posterurl}
+              alt={this.state.movie.title}
             />
           </div>
         </div>

@@ -1,43 +1,58 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Movie extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }  
   state = {
     detail: [],
-    item: []
-  }
-  handleClick = () => {
-    this.props.handler(this.props.isToggleOn ? 0 : this.props.id);
-  }
+    info: []
+  }  
 
-  componentDidMount() {
+  async  handleClick ()  {
+    var movie =  this.props.moviesCache[this.props.id];
+    if(movie === undefined){
+      movie = await this.GetMovie();
+    }
+    this.props.addToCache(movie);
+    this.props.handler(this.props.isToggleOn ? 0 : this.props.id);
+
     this.setState({
       detail:
         <div>
           <div>
             <div>
-              {this.props.movie.genres.reduce((prev, curr) => [...prev, ', ', curr])}
+              {movie.genres.reduce((prev, curr) => [...prev, ', ', curr])}
             </div>
             <div>
-              {this.props.movie.actors.reduce((prev, curr) => [...prev, ', ', curr])}
+              {movie.actors.reduce((prev, curr) => [...prev, ', ', curr])}
             </div>
             <img
               className="Avatar"
-              src={this.props.movie.posterurl}
+              src={movie.posterurl}
+              alt={movie.title}
             />
           </div>
         </div>
     })
+  }
+  async GetMovie() {
+    var url = 'https://react-mentoring-backend.herokuapp.com/movies/' + this.props.id    
+    const response = await fetch(url)
+    return await response.json()
+  }
 
+  async componentDidMount() {
     this.setState({
       info:
         <div>
+          <div>
+            {this.props.movie.id}
+          </div>
           <div>
             {this.props.movie.title}
           </div>
@@ -55,6 +70,7 @@ class Movie extends Component {
           </div>          
         </div>
     })
+
   }
   infoPart =()=>{
     return (this.state.info)
