@@ -14,7 +14,7 @@ class Movie extends Component {
     return <MovieInfo movie={context.state.movies[this.props.id]} />
   }
   detailPart(context) {
-    return <MovieDetails movie={context.state.movies[this.props.id]} />
+    return <MovieDetails movie={context.state.movies[this.props.id]} id={this.props.id}/>
   }
 
   render() {
