@@ -34,52 +34,47 @@ class Movie extends Component {
 
 export default Movie;
 
-class MovieInfo extends Component {
-
-  render() {
-    if (this.props.movie === undefined) return (<div> movie is undefined </div>)
-    return (
+const MovieInfo = (props) => {
+  if (props.movie === undefined) return (<div> movie is undefined </div>)
+  return (
+    <div>
       <div>
         <div>
-          <div>
 
-            {this.props.movie.genres.reduce((prev, curr) => [...prev, ', ', curr])}
-          </div>
-          <div>
-            {this.props.movie.actors.reduce((prev, curr) => [...prev, ', ', curr])}
-          </div>
-          <img
-            className="Avatar"
-            src={this.props.movie.posterurl}
-            alt={this.props.movie.title}
-          />
+          {props.movie.genres.reduce((prev, curr) => [...prev, ', ', curr])}
         </div>
-      </div>);
-  }
+        <div>
+          {props.movie.actors.reduce((prev, curr) => [...prev, ', ', curr])}
+        </div>
+        <img
+          className="Avatar"
+          src={props.movie.posterurl}
+          alt={props.movie.title}
+        />
+      </div>
+    </div>);
 }
 
 
-class MovieDetails extends Component {
-  render() {
-    if (this.props.movie === undefined) return (<div> movie is undefined </div>)
-    return (
+const MovieDetails = (props) => {
+  if (props.movie === undefined) return (<div> movie is undefined </div>)
+  return (
+    <div>
       <div>
-        <div>
-          {this.props.movie.title}
-        </div>
-        <div>
-          {this.props.movie.year}
-        </div>
-        <div>
-          {(this.props.movie.ratings.reduce((a, b) => (a + b) / this.props.movie.ratings.length).toFixed(2))}
-        </div>
-        <div>
-          {this.props.movie.imdbRating}
-        </div>
-        <div>
-          <Link to={`/movie/${this.props.id}`}>Movie details</Link>
-        </div>
-        <div>-------------------------------------------------------------</div>
-      </div>);
-  }
+        {props.movie.title}
+      </div>
+      <div>
+        {props.movie.year}
+      </div>
+      <div>
+        {(props.movie.ratings.reduce((a, b) => (a + b) / props.movie.ratings.length).toFixed(2))}
+      </div>
+      <div>
+        {props.movie.imdbRating}
+      </div>
+      <div>
+        <Link to={`/movie/${props.id}`}>Movie details</Link>
+      </div>
+      <div>-------------------------------------------------------------</div>
+    </div>);
 }
