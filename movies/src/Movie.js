@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Link } from 'react-router-dom';
-
+import PropTypes from 'prop-types';
 
 class Movie extends Component {
   constructor(props) {
@@ -89,6 +89,7 @@ class Movie extends Component {
   render() {
     return (
       <div>
+        {this.props.movie.id.isValid===undefined && <div>undef</div>}
         {this.infoPart()}
         {this.button()}
         {this.props.isToggleOn && this.conditionalDetailPart()}
@@ -100,3 +101,7 @@ class Movie extends Component {
 }
 
 export default Movie;
+
+Movie.propTypes = {
+  id: PropTypes.string
+};
