@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-// import './App.css';
 import Movie from './Movie';
 
 class MoviesList extends Component {
   state = {
     movies: [],
-    activeMovieId: false
+    activeMovieId: false,
+    moviesCache: []
   }
 
   handler = (movieId) => {
     this.setState({ activeMovieId: movieId });
+  }
+  addToCache = (movie) => {
+    var moviesCache = this.state.moviesCache;
+    moviesCache[movie.id] = movie;
+    this.setState({
+      moviesCache: moviesCache
+    })    
   }
 
   async componentDidMount() {
@@ -23,7 +29,7 @@ class MoviesList extends Component {
   }
 
   listMovie(movies) {
-    return movies.map((movie) => <Movie key={movie.id} id={movie.id} movie={movie} handler={this.handler} isToggleOn={this.state.activeMovieId === movie.id} />)
+    return movies.map((movie) => <Movie key={movie.id} id={movie.id} movie={movie} moviesCache={this.state.moviesCache} handler={this.handler} addToCache ={this.addToCache } isToggleOn={this.state.activeMovieId === movie.id} />)
   }
   render() {    
     return (

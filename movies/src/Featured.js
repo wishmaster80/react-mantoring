@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import MovieFeatured from './MovieFeatured';
 
+
+export const FeaturedContext = React.createContext();
+
 class Featured extends Component {
   state = {
     movies: [],
@@ -26,6 +29,7 @@ class Featured extends Component {
 
     const movies = await this.GetMovies();
     this.setState({postersList: postersList })
+
     this.setState({ movies: movies })
   }
   async GetMovies() {
@@ -34,13 +38,15 @@ class Featured extends Component {
   }
 
   listMovie(movies) {
-    return movies.map((movie) => <MovieFeatured key={movie.id} id={movie.id} movie={movie} isToggleOn={this.state.postersList.includes(movie.id)} />)
+    return movies.map((movie2) => <MovieFeatured key={movie2.id} id={movie2.id} isToggleOn={this.state.postersList.includes(movie2.id)}/>)
   }
   render() {    
     return (
-      <ul>
-        {this.listMovie(this.state.movies)}
-      </ul>
+      <FeaturedContext.Provider value={{state: this.state}}>
+        <ul>
+          {this.listMovie(this.state.movies)}
+        </ul>
+      </FeaturedContext.Provider>
     );
 
 

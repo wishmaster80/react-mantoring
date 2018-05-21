@@ -19,7 +19,7 @@ class MovieDetails extends Component {
       <div  class="row">
         <div class="col">
           <img            
-            src={this.state.movie.posterurl}
+            src={this.state.movie.posterurl} alt={this.state.movie.title}
           />
         </div>
         <div class="col">
